@@ -1,0 +1,9 @@
+package main
+
+func main() {
+
+	rng := NewRandomNameGenerator()
+	for i := 0; i < 10; i++ {
+		println(rng.Generate())
+	}
+}
