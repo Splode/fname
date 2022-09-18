@@ -1,15 +1,13 @@
-package main
+package fname
 
 import (
 	"bufio"
+	"embed"
 	"fmt"
-	"os"
 )
 
-const (
-	defaultAdjectivePath = "./data/adjective"
-	defaultNounPath      = "./data/noun"
-)
+//go:embed data/*
+var dataFS embed.FS
 
 type Dictionary struct {
 	adectives []string
@@ -17,11 +15,11 @@ type Dictionary struct {
 }
 
 func NewDictionary() *Dictionary {
-	a, err := loadFile(defaultAdjectivePath)
+	a, err := loadFile("data/adjective")
 	if err != nil {
 		panic(err)
 	}
-	n, err := loadFile(defaultNounPath)
+	n, err := loadFile("data/noun")
 	if err != nil {
 		panic(err)
 	}
@@ -55,7 +53,7 @@ func (d *Dictionary) LengthNoun() int {
 }
 
 func loadFile(path string) ([]string, error) {
-	f, err := os.Open(path)
+	f, err := dataFS.Open(path)
 	if err != nil {
 		return nil, err
 	}
