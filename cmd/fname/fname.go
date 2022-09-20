@@ -10,8 +10,8 @@ import (
 )
 
 const (
-	usage = `fname generates random, human-friendly names, such as "awful-fossil"
-or "zesty zebra".
+	usage = `fname generates random, human-friendly names, such as
+"awful-fossil" or "zesty zebra".
 
 Usage: 
   fname [options]
