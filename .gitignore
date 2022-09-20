@@ -1,3 +1,6 @@
 **/*.exe
+**/*.bak
 
 .vscode/
+
+dist/
