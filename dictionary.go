@@ -62,7 +62,10 @@ func loadFile(path string) ([]string, error) {
 	var words []string
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
-		words = append(words, scanner.Text())
+		w := scanner.Text()
+		if w != "" {
+			words = append(words, scanner.Text())
+		}
 	}
 	if scanner.Err() != nil {
 		return nil, scanner.Err()
