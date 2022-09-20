@@ -6,6 +6,11 @@ import (
 	"fmt"
 )
 
+const (
+	adjectiveFilePath = "data/adjective"
+	nounFilePath      = "data/noun"
+)
+
 //go:embed data/*
 var dataFS embed.FS
 
@@ -15,11 +20,11 @@ type Dictionary struct {
 }
 
 func NewDictionary() *Dictionary {
-	a, err := loadFile("data/adjective")
+	a, err := loadFile(adjectiveFilePath)
 	if err != nil {
 		panic(err)
 	}
-	n, err := loadFile("data/noun")
+	n, err := loadFile(nounFilePath)
 	if err != nil {
 		panic(err)
 	}
