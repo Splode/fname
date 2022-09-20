@@ -1,19 +1,16 @@
 # https://taskfile.dev
 
 version: '3'
-
 vars:
   GO_PACKAGES:
-        sh: go list ./...
+    sh: go list ./...
   TAG:
-    # sh: git describe --tags --abbrev=0
-
+  # sh: git describe --tags --abbrev=0
 tasks:
   test-release:
     desc: Tests release process without publishing
     cmds:
       - goreleaser --snapshot --rm-dist
-
   check-data:
     desc: Checks dictionary data for duplicate entries
     cmds:
