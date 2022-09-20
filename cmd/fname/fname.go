@@ -34,12 +34,7 @@ Repo: https://github.com/splode/fname`
 var banner []byte
 
 func main() {
-	pflag.Usage = func() {
-		fmt.Println(string(banner))
-		fmt.Println(usage)
-		pflag.PrintDefaults()
-		fmt.Println(contact)
-	}
+	pflag.Usage = generateUsage
 
 	var (
 		delimiter string = ""
@@ -72,4 +67,11 @@ func main() {
 	for i := 0; i < number; i++ {
 		fmt.Println(rng.Generate())
 	}
+}
+
+func generateUsage() {
+	fmt.Println(string(banner))
+	fmt.Println(usage)
+	pflag.PrintDefaults()
+	fmt.Println(contact)
 }
