@@ -4,6 +4,7 @@ import (
 	_ "embed"
 	"fmt"
 	"os"
+	"runtime/debug"
 
 	"github.com/spf13/pflag"
 	"github.com/splode/fname"
@@ -30,6 +31,10 @@ Author: Christopher Murphy <flyweight@pm.me>
 Repo: https://github.com/splode/fname`
 )
 
+var (
+	version = ""
+)
+
 //go:embed banner
 var banner []byte
 
@@ -41,16 +46,24 @@ func main() {
 		help      bool   = false
 		number    int    = 1
 		seed      int64  = -1
+		ver       bool   = false
+		// TODO: add option to use custom dictionary
 	)
 
 	pflag.StringVarP(&delimiter, "delimiter", "d", delimiter, "delimiter to use between words")
-	pflag.BoolVarP(&help, "help", "h", help, "Show fname usage")
+	pflag.BoolVarP(&help, "help", "h", help, "show fname usage")
 	pflag.IntVarP(&number, "number", "n", number, "number of names to generate")
 	pflag.Int64VarP(&seed, "seed", "s", seed, "random generator seed")
+	pflag.BoolVarP(&ver, "version", "v", ver, "show fname version")
 	pflag.Parse()
 
 	if help {
 		pflag.Usage()
+		os.Exit(0)
+	}
+
+	if ver {
+		fmt.Println(getVersion())
 		os.Exit(0)
 	}
 
@@ -74,4 +87,22 @@ func generateUsage() {
 	fmt.Println(usage)
 	pflag.PrintDefaults()
 	fmt.Println(contact)
+}
+
+func getVersion() string {
+	if version != "" {
+		return version
+	}
+
+	info, ok := debug.ReadBuildInfo()
+	if !ok || info.Main.Version == "" {
+		return "unknown"
+	}
+
+	version = info.Main.Version
+	if info.Main.Sum != "" {
+		version += fmt.Sprintf(" (%s)", info.Main.Sum)
+	}
+
+	return version
 }
