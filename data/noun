@@ -17,6 +17,7 @@ acquisition
 act
 action
 activity
+actor
 addition
 address
 administration
@@ -131,6 +132,7 @@ avenue
 average
 aviation
 award
+ax
 axis
 baby
 back
@@ -185,6 +187,7 @@ bell
 belly
 belt
 bench
+benefactor
 beneficiary
 benefit
 berry
@@ -328,6 +331,7 @@ chalk
 challenge
 champagne
 champion
+championship
 chance
 change
 channel
@@ -347,7 +351,6 @@ cheek
 cheese
 chemical
 chemistry
-check
 cherry
 chest
 chicken
@@ -473,6 +476,7 @@ continuation
 contract
 contraction
 contradiction
+contrail
 contrary
 contrast
 contribution
@@ -550,6 +554,7 @@ cut
 cutting
 cycle
 cylinder
+dagger
 dairy
 damage
 danger
@@ -657,7 +662,9 @@ dollar
 dolphin
 dome
 domination
+dominion
 donor
+doom
 door
 dose
 double
@@ -707,6 +714,7 @@ electron
 electronics
 element
 elephant
+elf
 elite
 embarrassment
 embassy
@@ -793,6 +801,7 @@ fall
 fame
 family
 fan
+fang
 fantasy
 fare
 farm
@@ -830,6 +839,7 @@ final
 finance
 finger
 fire
+fireball
 firefighter
 firm
 fish
@@ -854,6 +864,7 @@ flu
 fluctuation
 fluid
 fly
+foam
 fog
 fold
 folk
@@ -925,6 +936,7 @@ gentleman
 geography
 gesture
 ghost
+ghoul
 giant
 gift
 girl
@@ -938,6 +950,7 @@ glory
 glove
 glow
 glue
+gnome
 goal
 goalkeeper
 goat
@@ -1076,6 +1089,7 @@ import
 importance
 improvement
 impulse
+incantation
 incentive
 inch
 incident
@@ -1175,8 +1189,8 @@ knife
 knot
 knowledge
 label
-laboratory
 labor
+laboratory
 laborer
 lace
 lack
@@ -1194,6 +1208,7 @@ language
 lap
 laser
 laundry
+lava
 law
 lawn
 lawyer
@@ -1204,6 +1219,7 @@ leader
 leadership
 leaf
 leaflet
+league
 lease
 leather
 leave
@@ -1266,6 +1282,8 @@ lung
 machine
 machinery
 magazine
+mage
+magma
 magnitude
 maid
 mail
@@ -1351,6 +1369,7 @@ mist
 mixture
 model
 module
+mold
 mole
 molecule
 moment
@@ -1378,7 +1397,6 @@ motif
 motivation
 motorist
 motorway
-mold
 mountain
 mourning
 mouse
@@ -1415,6 +1433,8 @@ nerve
 nest
 net
 network
+neutrino
+neutron
 newcomer
 news
 night
@@ -1431,6 +1451,7 @@ notebook
 notice
 notion
 noun
+nova
 novel
 number
 nun
@@ -1447,8 +1468,8 @@ obstacle
 occasion
 occupation
 ocean
-offense
 offender
+offense
 offer
 office
 officer
@@ -1473,6 +1494,7 @@ organ
 organization
 orientation
 origin
+ornament
 outfit
 outlet
 outline
@@ -1716,7 +1738,9 @@ pyramid
 qualification
 quality
 quantity
+quark
 quarter
+quasar
 queen
 quest
 question
@@ -1865,6 +1889,7 @@ rugby
 ruin
 rule
 rumor
+rune
 runner
 rush
 safety
@@ -1893,6 +1918,7 @@ scheme
 scholar
 scholarship
 school
+schoolbook
 science
 scientist
 score
@@ -1900,6 +1926,7 @@ scrap
 screen
 screw
 script
+scroll
 sculpture
 sea
 seal
@@ -1937,6 +1964,7 @@ shade
 shadow
 shaft
 shame
+shard
 share
 shareholder
 shark
@@ -1959,6 +1987,7 @@ shot
 shoulder
 show
 shower
+shuttle
 sickness
 side
 siege
@@ -2018,6 +2047,7 @@ soup
 source
 south
 space
+spaceship
 speaker
 specialist
 species
@@ -2182,6 +2212,7 @@ theorist
 theory
 therapist
 therapy
+thermometer
 thesis
 thigh
 thinker
@@ -2208,6 +2239,7 @@ toast
 toe
 toll
 tomato
+tome
 ton
 tone
 tongue
@@ -2236,6 +2268,7 @@ training
 trait
 transaction
 transfer
+transformer
 transition
 transmission
 transport
@@ -2291,6 +2324,7 @@ user
 vacuum
 valley
 value
+vampire
 van
 variable
 variant
@@ -2338,12 +2372,15 @@ wagon
 waist
 wake
 wall
+wanderer
 war
 ward
 wardrobe
+warlock
 warning
 warrant
 warrior
+wasp
 waste
 watch
 water
@@ -2381,9 +2418,11 @@ wing
 winner
 winter
 wire
+wish
 witch
 withdrawal
 witness
+wizard
 wolf
 woman
 wonder
