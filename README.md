@@ -1,3 +1,5 @@
+![fname banner](.github/media/fname_banner_1.1_1280x640.png)
+
 # fname
 
 Generate random, human-friendly names, like `determined-pancake` or `sinister discovery`. `fname` is like a grammatically aware diceware generator for unique names or identifiers.
