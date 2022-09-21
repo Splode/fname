@@ -1,8 +1,8 @@
 # fname
 
-`fname` is a command-line utility that generates random, human-friendly name phrases, like `determined-pancake` or `silly-zebra`.
+Command-line utility that generates random, human-friendly name, like `determined-pancake` or `silly-zebra`. `fname` is like a grammatically correct diceware generator for unique names or identifiers.
 
-`fname` isn't meant to provide a secure, unique identifier, but with over 1.8 million possible combinations, it should be good enough for most purposes.
+`fname` isn't meant to provide a secure, unique identifier, but with over 3.4 million possible combinations, it's good enough for most non-critical use cases.
 
 ## Installation
 
@@ -48,3 +48,17 @@ Generate a random name phrase with a custom delimiter:
 $ fname --delimiter _
 glaring_perception
 ```
+
+Specify the seed for generating names:
+
+```sh
+$ fname --seed 123
+foundational-spot
+
+$ fname --seed 123
+foundational-spot
+```
+
+## License
+
+## Related Projects
