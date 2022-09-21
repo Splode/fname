@@ -1,6 +1,6 @@
 # fname
 
-Command-line utility that generates random, human-friendly names, like `determined-pancake` or `silly-zebra`. Think of `fname` like a grammatically aware diceware generator for unique names or identifiers.
+Generate random, human-friendly names, like `determined-pancake` or `sinister discovery`. `fname` is like a grammatically aware diceware generator for unique names or identifiers.
 
 `fname` isn't meant to provide a secure, globally unique identifier, but with over 3.4 million possible combinations, it's good enough for most non-critical use cases.
 
@@ -25,6 +25,8 @@ go install ./cmd/fname
 ```
 
 ## Usage
+
+### CLI
   
 Generate a single, random name:
 
@@ -45,7 +47,7 @@ cultural-storage
 Generate a random name phrase with a custom delimiter:
 
 ```sh
-$ fname --delimiter _
+$ fname --delimiter "_"
 glaring_perception
 ```
 
@@ -59,8 +61,37 @@ $ fname --seed 123
 foundational-spot
 ```
 
+### Library
+
+#### Install
+
+```sh
+go get github.com/splode/fname
+```
+
+#### Example
+
+```go
+package main
+
+import (
+  "fmt"
+
+  "github.com/splode/fname"
+)
+
+func main() {
+  rng := fname.NewRandomNameGenerator()
+  fmt.Println(rng.Generate())
+  // => "influential-length"
+}
+```
+
 ## License
 
 [MIT License](./LICENSE)
 
 ## Related Projects
+
+- [go-diceware](https://github.com/sethvargo/go-diceware)
+- [wordnet-random-name](https://github.com/kohsuke/wordnet-random-name)
