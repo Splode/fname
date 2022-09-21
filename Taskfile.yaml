@@ -11,14 +11,33 @@ tasks:
     desc: Installs fname
     cmds:
       - go install -v -ldflags "-w -s -X main.version={{.TAG}}" ./cmd/fname
-  test-release:
+  lint:
+    desc: Runs golangci-lint
+    cmds:
+      - golangci-lint run
+  release:test:
     desc: Tests release process without publishing
     cmds:
       - goreleaser --snapshot --rm-dist
-  check-data:
+  data:dupe:
     desc: Checks dictionary data for duplicate entries
+    cmds:
+      - cat data/adjective | uniq -d
+      - cat data/noun | uniq -d
+  data:spellcheck:
+    desc: Checks dictionary data for spelling errors
     cmds:
       - aspell -d en_US --ignore-case -c data/adjective
       - aspell -d en_US --ignore-case -c data/noun
-      - cat data/adjective | uniq -d
-      - cat data/noun | uniq -d
+  data:count:
+    desc: Counts dictionary data
+    cmds:
+      - wc -l data/adjective
+      - wc -l data/noun
+  data:sort:
+    desc: Sorts dictionary data
+    cmds:
+      - sort data/adjective | uniq > data/adjective.tmp
+      - sort data/noun | uniq > data/noun.tmp
+      - mv data/adjective.tmp data/adjective
+      - mv data/noun.tmp data/noun
