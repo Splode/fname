@@ -1,8 +1,8 @@
 # fname
 
-Command-line utility that generates random, human-friendly name, like `determined-pancake` or `silly-zebra`. `fname` is like a grammatically correct diceware generator for unique names or identifiers.
+Command-line utility that generates random, human-friendly names, like `determined-pancake` or `silly-zebra`. Think of `fname` like a grammatically aware diceware generator for unique names or identifiers.
 
-`fname` isn't meant to provide a secure, unique identifier, but with over 3.4 million possible combinations, it's good enough for most non-critical use cases.
+`fname` isn't meant to provide a secure, globally unique identifier, but with over 3.4 million possible combinations, it's good enough for most non-critical use cases.
 
 ## Installation
 
@@ -60,5 +60,7 @@ foundational-spot
 ```
 
 ## License
+
+[MIT License](./LICENSE)
 
 ## Related Projects
