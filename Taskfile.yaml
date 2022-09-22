@@ -23,21 +23,31 @@ tasks:
     desc: Checks dictionary data for duplicate entries
     cmds:
       - cat data/adjective | uniq -d
+      - cat data/adverb | uniq -d
       - cat data/noun | uniq -d
+      - cat data/verb | uniq -d
   data:spellcheck:
     desc: Checks dictionary data for spelling errors
     cmds:
       - aspell -d en_US --ignore-case -c data/adjective
+      - aspell -d en_US --ignore-case -c data/adverb
       - aspell -d en_US --ignore-case -c data/noun
+      - aspell -d en_US --ignore-case -c data/verb
   data:count:
     desc: Counts dictionary data
     cmds:
       - wc -l data/adjective
+      - wc -l data/adverb
       - wc -l data/noun
+      - wc -l data/verb
   data:sort:
     desc: Sorts dictionary data
     cmds:
       - sort data/adjective | uniq > data/adjective.tmp
+      - sort data/adverb | uniq > data/adverb.tmp
       - sort data/noun | uniq > data/noun.tmp
+      - sort data/verb | uniq > data/verb.tmp
       - mv data/adjective.tmp data/adjective
+      - mv data/adverb.tmp data/adverb
       - mv data/noun.tmp data/noun
+      - mv data/verb.tmp data/verb
