@@ -51,3 +51,10 @@ tasks:
       - mv data/adverb.tmp data/adverb
       - mv data/noun.tmp data/noun
       - mv data/verb.tmp data/verb
+  data:trim:
+    desc: Trims dictionary data of whitespace
+    cmds:
+      - sed -i "/\S/!d" data/adjective
+      - sed -i "/\S/!d" data/adverb
+      - sed -i "/\S/!d" data/noun
+      - sed -i "/\S/!d" data/verb
