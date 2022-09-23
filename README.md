@@ -40,7 +40,7 @@ extinct-green
 Generate multiple names, passing the number of names as an argument:
 
 ```sh
-$ fname --number 3
+$ fname --quantity 3
 influential-length
 direct-ear
 cultural-storage
