@@ -2,9 +2,9 @@
 
 # fname
 
-Generate random, human-friendly names, like `determined-pancake` or `sinister discovery`. `fname` is like a grammatically aware diceware generator for unique names or identifiers.
+Generate random, human-friendly names, like `determined-pancake` or `sinister discovery`. fname is like a grammatically aware diceware generator for unique names or identifiers.
 
-`fname` isn't meant to provide a secure, globally unique identifier, but with over 500 billion possible combinations, it's good enough for most non-critical use cases.
+fname isn't meant to provide a secure, globally unique identifier, but with over 500 billion possible combinations, it's good enough for most non-critical use cases.
 
 ## Installation
 
