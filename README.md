@@ -4,7 +4,7 @@
 
 Generate random, human-friendly names, like `determined-pancake` or `sinister discovery`. `fname` is like a grammatically aware diceware generator for unique names or identifiers.
 
-`fname` isn't meant to provide a secure, globally unique identifier, but with over 3.4 million possible combinations, it's good enough for most non-critical use cases.
+`fname` isn't meant to provide a secure, globally unique identifier, but with over 500 billion possible combinations, it's good enough for most non-critical use cases.
 
 ## Installation
 
@@ -49,9 +49,21 @@ cultural-storage
 Generate a random name phrase with a custom delimiter:
 
 ```sh
-$ fname --delimiter "_"
-glaring_perception
+$ fname --delimiter "__"
+glaring__perception
 ```
+
+Generate a random name phrase with a custom delimiter and quantity:
+
+```sh
+$ fname --size 3
+vengeful-toy-identified
+
+$ fname --size 4
+ambiguous-anticipation-ignored-keenly
+```
+
+Note: the minimum phrase size is 2 (default), and the maximum is 4.
 
 Specify the seed for generating names:
 
@@ -84,7 +96,8 @@ import (
 
 func main() {
   rng := fname.NewRandomNameGenerator()
-  fmt.Println(rng.Generate())
+  phrase, err := rng.Generate()
+  fmt.Println(phrase)
   // => "influential-length"
 }
 ```

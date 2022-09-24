@@ -43,17 +43,19 @@ func main() {
 
 	var (
 		delimiter string = ""
-		help      bool   = false
 		quantity  int    = 1
+		size      uint   = 2
 		seed      int64  = -1
+		help      bool   = false
 		ver       bool   = false
 		// TODO: add option to use custom dictionary
 	)
 
 	pflag.StringVarP(&delimiter, "delimiter", "d", delimiter, "delimiter to use between words")
-	pflag.BoolVarP(&help, "help", "h", help, "show fname usage")
 	pflag.IntVarP(&quantity, "quantity", "q", quantity, "number of name phrases to generate")
+	pflag.UintVarP(&size, "size", "z", size, "number of words per phrase (minimum 2, maximum 4)")
 	pflag.Int64VarP(&seed, "seed", "s", seed, "random generator seed")
+	pflag.BoolVarP(&help, "help", "h", help, "show fname usage")
 	pflag.BoolVarP(&ver, "version", "v", ver, "show fname version")
 	pflag.Parse()
 
@@ -74,11 +76,19 @@ func main() {
 	if seed != -1 {
 		opts = append(opts, fname.WithSeed(seed))
 	}
+	if size != 2 {
+		opts = append(opts, fname.WithSize(size))
+	}
 
 	rng := fname.NewRandomNameGenerator(opts...)
 
 	for i := 0; i < quantity; i++ {
-		fmt.Println(rng.Generate())
+		name, err := rng.Generate()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "error: %v", err)
+			os.Exit(1)
+		}
+		fmt.Println(name)
 	}
 }
 
