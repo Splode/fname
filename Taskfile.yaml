@@ -36,10 +36,10 @@ tasks:
   data:count:
     desc: Counts dictionary data
     cmds:
-      - wc -l data/adjective
-      - wc -l data/adverb
-      - wc -l data/noun
-      - wc -l data/verb
+      - wc -l data/adjective | cut -F 1
+      - wc -l data/adverb | cut -F 1
+      - wc -l data/noun | cut -F 1
+      - wc -l data/verb | cut -F 1
   data:sort:
     desc: Sorts dictionary data
     cmds:
@@ -54,7 +54,5 @@ tasks:
   data:trim:
     desc: Trims dictionary data of whitespace
     cmds:
-      - sed -i "/\S/!d" data/adjective
-      - sed -i "/\S/!d" data/adverb
-      - sed -i "/\S/!d" data/noun
-      - sed -i "/\S/!d" data/verb
+      - sed -i "/\S/!d" data/adjective data/adverb data/noun data/verb # newlines
+      - sed -i "s/[ \t]*$//" data/adjective data/adverb data/noun data/verb # trailing whitespace
