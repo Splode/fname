@@ -15,6 +15,10 @@ tasks:
     desc: Runs golangci-lint
     cmds:
       - golangci-lint run
+  test:
+    desc: Runs tests
+    cmds:
+      - go test ./...
   release:test:
     desc: Tests release process without publishing
     cmds:
