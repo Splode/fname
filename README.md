@@ -83,7 +83,7 @@ foundational-spot
 go get github.com/splode/fname
 ```
 
-#### Example
+#### Basic Usage
 
 ```go
 package main
@@ -99,6 +99,25 @@ func main() {
   phrase, err := rng.Generate()
   fmt.Println(phrase)
   // => "influential-length"
+}
+```
+
+#### Customization
+
+```go
+package main
+
+import (
+  "fmt"
+
+  "github.com/splode/fname"
+)
+
+func main() {
+  rng := fname.NewRandomNameGenerator(fname.WithDelimiter("__"), fname.WithSize(3))
+  phrase, err := rng.Generate()
+  fmt.Println(phrase)
+  // => "established__shark__destroyed"
 }
 ```
 
