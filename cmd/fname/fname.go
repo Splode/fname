@@ -22,13 +22,13 @@ Examples:
   fname
 
   # generate 10 names using a custom delimiter
-  fname --delimiter "." --number 10
+  fname --delimiter "." --quantity 10
 
 Options:`
 
 	contact = `
 Author: Christopher Murphy <flyweight@pm.me>
-Repo: https://github.com/splode/fname`
+Source: https://github.com/splode/fname`
 )
 
 var (
