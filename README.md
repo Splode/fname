@@ -30,14 +30,14 @@ go install ./cmd/fname
 
 ### CLI
   
-Generate a single, random name:
+Generate a single, random name phrase:
 
 ```sh
 $ fname
 extinct-green
 ```
 
-Generate multiple names, passing the number of names as an argument:
+Generate multiple name phrases, passing the number of names as an argument:
 
 ```sh
 $ fname --quantity 3
@@ -46,21 +46,21 @@ direct-ear
 cultural-storage
 ```
 
-Generate a random name phrase with a custom delimiter:
+Generate a name phrase with a custom delimiter:
 
 ```sh
 $ fname --delimiter "__"
 glaring__perception
 ```
 
-Generate a random name phrase with a custom delimiter and quantity:
+Generate a name phrase with more words:
 
 ```sh
 $ fname --size 3
 vengeful-toy-identified
 
 $ fname --size 4
-ambiguous-anticipation-ignored-keenly
+spellbinding-project-presented-fully
 ```
 
 Note: the minimum phrase size is 2 (default), and the maximum is 4.
@@ -68,11 +68,13 @@ Note: the minimum phrase size is 2 (default), and the maximum is 4.
 Specify the seed for generating names:
 
 ```sh
-$ fname --seed 123
-foundational-spot
+$ fname --seed 123 --quantity 2
+pleasant-joy
+eligible-tenant
 
-$ fname --seed 123
-foundational-spot
+$ fname --seed 123 --quantity 2
+pleasant-joy
+eligible-tenant
 ```
 
 ### Library
