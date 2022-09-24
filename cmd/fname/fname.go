@@ -69,7 +69,7 @@ func main() {
 		os.Exit(0)
 	}
 
-	opts := []fname.RandomNameGeneratorOption{}
+	opts := []fname.GeneratorOption{}
 	if delimiter != "" {
 		opts = append(opts, fname.WithDelimiter(delimiter))
 	}
@@ -80,7 +80,7 @@ func main() {
 		opts = append(opts, fname.WithSize(size))
 	}
 
-	rng := fname.NewRandomNameGenerator(opts...)
+	rng := fname.NewGenerator(opts...)
 
 	for i := 0; i < quantity; i++ {
 		name, err := rng.Generate()

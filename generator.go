@@ -7,35 +7,35 @@ import (
 	"time"
 )
 
-type RandomNameGenerator struct {
+type Generator struct {
 	dict      *Dictionary
 	delimiter string
 	seed      int64
 	size      uint
 }
 
-type RandomNameGeneratorOption func(*RandomNameGenerator)
+type GeneratorOption func(*Generator)
 
-func WithDelimiter(delimiter string) RandomNameGeneratorOption {
-	return func(r *RandomNameGenerator) {
+func WithDelimiter(delimiter string) GeneratorOption {
+	return func(r *Generator) {
 		r.delimiter = delimiter
 	}
 }
 
-func WithSeed(seed int64) RandomNameGeneratorOption {
-	return func(r *RandomNameGenerator) {
+func WithSeed(seed int64) GeneratorOption {
+	return func(r *Generator) {
 		r.seed = seed
 	}
 }
 
-func WithSize(size uint) RandomNameGeneratorOption {
-	return func(r *RandomNameGenerator) {
+func WithSize(size uint) GeneratorOption {
+	return func(r *Generator) {
 		r.size = size
 	}
 }
 
-func NewRandomNameGenerator(opts ...RandomNameGeneratorOption) *RandomNameGenerator {
-	r := &RandomNameGenerator{
+func NewGenerator(opts ...GeneratorOption) *Generator {
+	r := &Generator{
 		dict:      NewDictionary(),
 		delimiter: "-",
 		seed:      time.Now().UnixNano(),
@@ -48,7 +48,7 @@ func NewRandomNameGenerator(opts ...RandomNameGeneratorOption) *RandomNameGenera
 	return r
 }
 
-func (r *RandomNameGenerator) Generate() (string, error) {
+func (r *Generator) Generate() (string, error) {
 	// TODO: address case where adjective and noun are the same, such as "orange-orange" or "sound-sound"
 	adjective, err := r.dict.Adjective(rand.Intn(r.dict.LengthAdjective()))
 	if err != nil {

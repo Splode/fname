@@ -95,7 +95,7 @@ import (
 )
 
 func main() {
-  rng := fname.NewRandomNameGenerator()
+  rng := fname.NewGenerator()
   phrase, err := rng.Generate()
   fmt.Println(phrase)
   // => "influential-length"
@@ -114,7 +114,7 @@ import (
 )
 
 func main() {
-  rng := fname.NewRandomNameGenerator(fname.WithDelimiter("__"), fname.WithSize(3))
+  rng := fname.NewGenerator(fname.WithDelimiter("__"), fname.WithSize(3))
   phrase, err := rng.Generate()
   fmt.Println(phrase)
   // => "established__shark__destroyed"
