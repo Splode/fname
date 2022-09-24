@@ -1,3 +1,4 @@
+// package fname contains functions for generating random, human-friendly names.
 package fname
 
 import (
@@ -7,6 +8,7 @@ import (
 	"time"
 )
 
+// Generator is a random name generator.
 type Generator struct {
 	dict      *Dictionary
 	delimiter string
@@ -14,26 +16,31 @@ type Generator struct {
 	size      uint
 }
 
+// GeneratorOption is a function that configures a Generator.
 type GeneratorOption func(*Generator)
 
+// WithDelimiter sets the delimiter used to join words.
 func WithDelimiter(delimiter string) GeneratorOption {
 	return func(r *Generator) {
 		r.delimiter = delimiter
 	}
 }
 
+// WithSeed sets the seed used to generate random numbers.
 func WithSeed(seed int64) GeneratorOption {
 	return func(r *Generator) {
 		r.seed = seed
 	}
 }
 
+// WithSize sets the number of words in the generated name.
 func WithSize(size uint) GeneratorOption {
 	return func(r *Generator) {
 		r.size = size
 	}
 }
 
+// NewGenerator creates a new Generator.
 func NewGenerator(opts ...GeneratorOption) *Generator {
 	r := &Generator{
 		dict:      NewDictionary(),
@@ -48,6 +55,7 @@ func NewGenerator(opts ...GeneratorOption) *Generator {
 	return r
 }
 
+// Generate generates a random name.
 func (r *Generator) Generate() (string, error) {
 	// TODO: address case where adjective and noun are the same, such as "orange-orange" or "sound-sound"
 	adjective, err := r.dict.Adjective(rand.Intn(r.dict.LengthAdjective()))
