@@ -42,12 +42,12 @@ func main() {
 	pflag.Usage = generateUsage
 
 	var (
-		delimiter string = ""
-		quantity  int    = 1
-		size      uint   = 2
-		seed      int64  = -1
-		help      bool   = false
-		ver       bool   = false
+		delimiter string
+		help      bool
+		ver       bool
+		quantity  int   = 1
+		size      uint  = 2
+		seed      int64 = -1
 		// TODO: add option to use custom dictionary
 	)
 
