@@ -1,4 +1,4 @@
-// package fname contains functions for generating random, human-friendly names.
+// Package fname contains functions for generating random, human-friendly names.
 package fname
 
 import (
