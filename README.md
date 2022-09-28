@@ -127,7 +127,7 @@ func main() {
 
 fname is not cryptographically secure, and should not be used for anything that requires a truly unique identifier. It is meant to be a fun, human-friendly alternative to UUIDs.
 
-fname's dictionary is curated to exclude words that are offensive, or could be considered offensive, either alone or when generated in a phrase. Nevertheless, all cases are not and cannot be covered. If you find a word that you think should be removed, please open an issue.
+fname's dictionary is curated to exclude words that are offensive, or could be considered offensive, either alone or when generated in a phrase. Nevertheless, all cases are not and cannot be covered. If you find a word that you think should be removed, please [open an issue](https://github.com/Splode/fname/issues).
 
 
 ## License
