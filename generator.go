@@ -58,35 +58,20 @@ func NewGenerator(opts ...GeneratorOption) *Generator {
 // Generate generates a random name.
 func (r *Generator) Generate() (string, error) {
 	// TODO: address case where adjective and noun are the same, such as "orange-orange" or "sound-sound"
-	adjective, err := r.dict.Adjective(rand.Intn(r.dict.LengthAdjective()))
-	if err != nil {
-		return "", err
-	}
-	noun, err := r.dict.Noun(rand.Intn(r.dict.LengthNoun()))
-	if err != nil {
-		return "", err
-	}
+	adjective := r.dict.adectives[rand.Intn(r.dict.LengthAdjective())]
+	noun := r.dict.nouns[rand.Intn(r.dict.LengthNoun())]
 	words := []string{adjective, noun}
 
 	switch r.size {
 	case 2:
 		return strings.Join(words, r.delimiter), nil
 	case 3:
-		verb, err := r.dict.Verb(rand.Intn(r.dict.LengthVerb()))
-		if err != nil {
-			return "", err
-		}
+		verb := r.dict.verbs[rand.Intn(r.dict.LengthVerb())]
 		words = append(words, verb)
 	case 4:
-		verb, err := r.dict.Verb(rand.Intn(r.dict.LengthVerb()))
-		if err != nil {
-			return "", err
-		}
+		verb := r.dict.verbs[rand.Intn(r.dict.LengthVerb())]
 		words = append(words, verb)
-		adverb, err := r.dict.Adverb(rand.Intn(r.dict.LengthAdverb()))
-		if err != nil {
-			return "", err
-		}
+		adverb := r.dict.adverbs[rand.Intn(r.dict.LengthAdverb())]
 		words = append(words, adverb)
 	default:
 		return "", fmt.Errorf("invalid size: %d", r.size)

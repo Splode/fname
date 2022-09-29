@@ -4,7 +4,6 @@ package fname
 import (
 	"bufio"
 	"embed"
-	"fmt"
 )
 
 const (
@@ -51,38 +50,6 @@ func NewDictionary() *Dictionary {
 		nouns:     n,
 		verbs:     v,
 	}
-}
-
-// Adjective returns a random adjective.
-func (d *Dictionary) Adjective(idx int) (string, error) {
-	if idx < 0 || idx >= len(d.adectives) {
-		return "", fmt.Errorf("index out of range: %d", idx)
-	}
-	return d.adectives[idx], nil
-}
-
-// Adverb returns a random adverb.
-func (d *Dictionary) Adverb(idx int) (string, error) {
-	if idx < 0 || idx >= len(d.adverbs) {
-		return "", fmt.Errorf("index out of range: %d", idx)
-	}
-	return d.adverbs[idx], nil
-}
-
-// Noun returns a random noun.
-func (d *Dictionary) Noun(idx int) (string, error) {
-	if idx < 0 || idx >= len(d.nouns) {
-		return "", fmt.Errorf("index out of range: %d", idx)
-	}
-	return d.nouns[idx], nil
-}
-
-// Verb returns a random verb.
-func (d *Dictionary) Verb(idx int) (string, error) {
-	if idx < 0 || idx >= len(d.verbs) {
-		return "", fmt.Errorf("index out of range: %d", idx)
-	}
-	return d.verbs[idx], nil
 }
 
 // LengthAdjective returns the number of adjectives in the dictionary.
