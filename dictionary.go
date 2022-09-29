@@ -2,19 +2,25 @@
 package fname
 
 import (
-	"bufio"
-	"embed"
+	_ "embed"
+	"strings"
 )
 
-const (
-	adjectiveFilePath = "data/adjective"
-	adverbFilePath    = "data/adverb"
-	nounFilePath      = "data/noun"
-	verbFilePath      = "data/verb"
-)
+//go:embed data/adjective
+var _adjective string
+var adjective = strings.Split(_adjective, "\n")
 
-//go:embed data/*
-var dataFS embed.FS
+//go:embed data/adverb
+var _adverb string
+var adverb = strings.Split(_adverb, "\n")
+
+//go:embed data/noun
+var _noun string
+var noun = strings.Split(_noun, "\n")
+
+//go:embed data/verb
+var _verb string
+var verb = strings.Split(_verb, "\n")
 
 // Dictionary is a collection of words.
 type Dictionary struct {
@@ -27,28 +33,11 @@ type Dictionary struct {
 // NewDictionary creates a new dictionary.
 func NewDictionary() *Dictionary {
 	// TODO: allow for custom dictionary
-	a, err := loadFile(adjectiveFilePath)
-	if err != nil {
-		panic(err)
-	}
-	av, err := loadFile(adverbFilePath)
-	if err != nil {
-		panic(err)
-	}
-	n, err := loadFile(nounFilePath)
-	if err != nil {
-		panic(err)
-	}
-	v, err := loadFile(verbFilePath)
-	if err != nil {
-		panic(err)
-	}
-
 	return &Dictionary{
-		adectives: a,
-		adverbs:   av,
-		nouns:     n,
-		verbs:     v,
+		adectives: adjective,
+		adverbs:   adverb,
+		nouns:     noun,
+		verbs:     verb,
 	}
 }
 
@@ -70,27 +59,4 @@ func (d *Dictionary) LengthNoun() int {
 // LengthVerb returns the number of verbs in the dictionary.
 func (d *Dictionary) LengthVerb() int {
 	return len(d.verbs)
-}
-
-// loadFile loads a file from the embedded filesystem, and returns a slice of strings containing each line.
-func loadFile(path string) ([]string, error) {
-	f, err := dataFS.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
-
-	var words []string
-	scanner := bufio.NewScanner(f)
-	for scanner.Scan() {
-		w := scanner.Text()
-		if w != "" {
-			words = append(words, scanner.Text())
-		}
-	}
-	if scanner.Err() != nil {
-		return nil, scanner.Err()
-	}
-
-	return words, nil
 }
