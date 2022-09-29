@@ -12,7 +12,7 @@ import (
 type Generator struct {
 	dict      *Dictionary
 	delimiter string
-	seed      int64
+	rand      *rand.Rand
 	size      uint
 }
 
@@ -29,7 +29,7 @@ func WithDelimiter(delimiter string) GeneratorOption {
 // WithSeed sets the seed used to generate random numbers.
 func WithSeed(seed int64) GeneratorOption {
 	return func(r *Generator) {
-		r.seed = seed
+		r.rand.Seed(seed)
 	}
 }
 
@@ -45,33 +45,32 @@ func NewGenerator(opts ...GeneratorOption) *Generator {
 	r := &Generator{
 		dict:      NewDictionary(),
 		delimiter: "-",
-		seed:      time.Now().UnixNano(),
+		rand:      rand.New(rand.NewSource(time.Now().UnixNano())),
 		size:      2,
 	}
 	for _, opt := range opts {
 		opt(r)
 	}
-	rand.Seed(r.seed)
 	return r
 }
 
 // Generate generates a random name.
 func (r *Generator) Generate() (string, error) {
 	// TODO: address case where adjective and noun are the same, such as "orange-orange" or "sound-sound"
-	adjective := r.dict.adectives[rand.Intn(r.dict.LengthAdjective())]
-	noun := r.dict.nouns[rand.Intn(r.dict.LengthNoun())]
+	adjective := r.dict.adectives[r.rand.Intn(r.dict.LengthAdjective())]
+	noun := r.dict.nouns[r.rand.Intn(r.dict.LengthNoun())]
 	words := []string{adjective, noun}
 
 	switch r.size {
 	case 2:
 		return strings.Join(words, r.delimiter), nil
 	case 3:
-		verb := r.dict.verbs[rand.Intn(r.dict.LengthVerb())]
+		verb := r.dict.verbs[r.rand.Intn(r.dict.LengthVerb())]
 		words = append(words, verb)
 	case 4:
-		verb := r.dict.verbs[rand.Intn(r.dict.LengthVerb())]
+		verb := r.dict.verbs[r.rand.Intn(r.dict.LengthVerb())]
 		words = append(words, verb)
-		adverb := r.dict.adverbs[rand.Intn(r.dict.LengthAdverb())]
+		adverb := r.dict.adverbs[r.rand.Intn(r.dict.LengthAdverb())]
 		words = append(words, adverb)
 	default:
 		return "", fmt.Errorf("invalid size: %d", r.size)
