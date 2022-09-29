@@ -12,7 +12,7 @@ import (
 type Generator struct {
 	dict      *Dictionary
 	delimiter string
-	seed      int64
+	rand      *rand.Rand
 	size      uint
 }
 
@@ -29,7 +29,7 @@ func WithDelimiter(delimiter string) GeneratorOption {
 // WithSeed sets the seed used to generate random numbers.
 func WithSeed(seed int64) GeneratorOption {
 	return func(r *Generator) {
-		r.seed = seed
+		r.rand.Seed(seed)
 	}
 }
 
@@ -45,48 +45,32 @@ func NewGenerator(opts ...GeneratorOption) *Generator {
 	r := &Generator{
 		dict:      NewDictionary(),
 		delimiter: "-",
-		seed:      time.Now().UnixNano(),
+		rand:      rand.New(rand.NewSource(time.Now().UnixNano())),
 		size:      2,
 	}
 	for _, opt := range opts {
 		opt(r)
 	}
-	rand.Seed(r.seed)
 	return r
 }
 
 // Generate generates a random name.
 func (r *Generator) Generate() (string, error) {
 	// TODO: address case where adjective and noun are the same, such as "orange-orange" or "sound-sound"
-	adjective, err := r.dict.Adjective(rand.Intn(r.dict.LengthAdjective()))
-	if err != nil {
-		return "", err
-	}
-	noun, err := r.dict.Noun(rand.Intn(r.dict.LengthNoun()))
-	if err != nil {
-		return "", err
-	}
+	adjective := r.dict.adectives[r.rand.Intn(r.dict.LengthAdjective())]
+	noun := r.dict.nouns[r.rand.Intn(r.dict.LengthNoun())]
 	words := []string{adjective, noun}
 
 	switch r.size {
 	case 2:
 		return strings.Join(words, r.delimiter), nil
 	case 3:
-		verb, err := r.dict.Verb(rand.Intn(r.dict.LengthVerb()))
-		if err != nil {
-			return "", err
-		}
+		verb := r.dict.verbs[r.rand.Intn(r.dict.LengthVerb())]
 		words = append(words, verb)
 	case 4:
-		verb, err := r.dict.Verb(rand.Intn(r.dict.LengthVerb()))
-		if err != nil {
-			return "", err
-		}
+		verb := r.dict.verbs[r.rand.Intn(r.dict.LengthVerb())]
 		words = append(words, verb)
-		adverb, err := r.dict.Adverb(rand.Intn(r.dict.LengthAdverb()))
-		if err != nil {
-			return "", err
-		}
+		adverb := r.dict.adverbs[r.rand.Intn(r.dict.LengthAdverb())]
 		words = append(words, adverb)
 	default:
 		return "", fmt.Errorf("invalid size: %d", r.size)

@@ -39,11 +39,6 @@ func TestNewGenerator(t *testing.T) {
 				t.Fatal("\t\tShould be able to set the delimiter of the phrase.")
 			}
 			t.Log("\t\tShould be able to set the delimiter of the phrase.")
-
-			if g.seed != 12345 {
-				t.Fatal("\t\tShould be able to set the seed of the phrase.")
-			}
-			t.Log("\t\tShould be able to set the seed of the phrase.")
 		}
 	}
 }
