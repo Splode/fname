@@ -44,6 +44,17 @@ tasks:
       - wc -l data/adverb | cut -F 1
       - wc -l data/noun | cut -F 1
       - wc -l data/verb | cut -F 1
+  data:lowercase:
+    desc: Converts dictionary data to lowercase
+    cmds:
+      - cat data/adjective | tr '[:upper:]' '[:lower:]' > data/adjective.tmp
+      - mv data/adjective.tmp data/adjective
+      - cat data/adverb | tr '[:upper:]' '[:lower:]' > data/adverb.tmp
+      - mv data/adverb.tmp data/adverb
+      - cat data/noun | tr '[:upper:]' '[:lower:]' > data/noun.tmp
+      - mv data/noun.tmp data/noun
+      - cat data/verb | tr '[:upper:]' '[:lower:]' > data/verb.tmp
+      - mv data/verb.tmp data/verb
   data:sort:
     desc: Sorts dictionary data
     cmds:
