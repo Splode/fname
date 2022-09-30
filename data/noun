@@ -49,8 +49,10 @@ aircraft
 airline
 airport
 aisle
+alacrity
 alarm
 album
+allegory
 allocation
 allowance
 ally
@@ -65,6 +67,7 @@ amphibian
 analogy
 analysis
 analyst
+anesthesiologist
 angel
 anger
 angle
@@ -180,11 +183,13 @@ bean
 bear
 beard
 beat
+beauty
 bed
 bedroom
 bee
 beef
 beer
+beetle
 beginning
 behavior
 belief
@@ -212,6 +217,7 @@ bishop
 bite
 blade
 blast
+blizzard
 block
 blood
 bloodshed
@@ -266,10 +272,12 @@ bubble
 bucket
 budget
 buffet
+bug
 building
 bulb
 bullet
 bulletin
+bulwark
 bundle
 bureaucracy
 burial
@@ -308,6 +316,7 @@ captain
 car
 carbon
 card
+cardiologist
 care
 career
 carpet
@@ -325,12 +334,14 @@ cat
 catalog
 catch
 category
+caterpillar
 cathedral
 cattle
 cause
 cave
 ceiling
 celebration
+celebrity
 celerity
 cell
 cellar
@@ -338,12 +349,14 @@ cemetery
 censorship
 census
 center
+centipede
 century
 cereal
 ceremony
 certificate
 chain
 chair
+chalice
 chalk
 challenge
 champagne
@@ -412,6 +425,7 @@ coalition
 coast
 coat
 cobra
+cockroach
 coconut
 code
 coffee
@@ -577,6 +591,7 @@ customer
 cut
 cutting
 cycle
+cyclone
 cylinder
 dagger
 dairy
@@ -594,6 +609,7 @@ deal
 dealer
 debate
 debt
+debutante
 decade
 decay
 decision
@@ -626,6 +642,7 @@ depression
 deprivation
 deputy
 derby
+dermatologist
 descent
 desert
 design
@@ -704,6 +721,7 @@ dove
 dozen
 draft
 dragon
+dragonfly
 drain
 drama
 drawer
@@ -716,6 +734,7 @@ drink
 drive
 driver
 drop
+drought
 drum
 duck
 duke
@@ -1018,6 +1037,7 @@ grant
 graph
 graphics
 grass
+grasshopper
 grave
 gravel
 gravity
@@ -1115,6 +1135,7 @@ humanity
 humor
 hunter
 hunting
+hurricane
 husband
 hut
 hypothesis
@@ -1254,6 +1275,8 @@ lace
 lack
 ladder
 lady
+ladybird
+ladybug
 lake
 lamb
 lamp
@@ -1303,6 +1326,7 @@ lie
 life
 lift
 light
+lightning
 lily
 limb
 limit
@@ -1330,6 +1354,7 @@ loop
 loss
 lot
 lounge
+louse
 love
 lover
 loyalty
@@ -1337,6 +1362,7 @@ lucre
 lump
 lunch
 lung
+luster
 machine
 machinery
 magazine
@@ -1353,6 +1379,7 @@ man
 management
 manager
 manner
+mantis
 manual
 manufacture
 manufacturer
@@ -1368,6 +1395,7 @@ marketing
 marriage
 mars
 marsh
+mashup
 mask
 mass
 master
@@ -1407,6 +1435,7 @@ methodology
 microphone
 middle
 midnight
+midwife
 migration
 mile
 milk
@@ -1428,6 +1457,7 @@ misery
 missile
 missive
 mist
+mixer
 mixture
 model
 module
@@ -1454,6 +1484,7 @@ mortgage
 mosaic
 mosque
 mosquito
+moth
 mother
 motif
 motivation
@@ -1663,6 +1694,7 @@ photograph
 photographer
 photography
 photon
+physician
 physics
 piano
 picture
@@ -1682,6 +1714,7 @@ pipe
 pit
 pitch
 pity
+pixie
 place
 plaintiff
 plan
@@ -1786,6 +1819,7 @@ project
 projection
 promise
 promotion
+prompt
 proof
 propaganda
 property
@@ -1837,6 +1871,7 @@ quote
 quotient
 rabbit
 rack
+radiance
 radiation
 radical
 radio
@@ -1848,6 +1883,7 @@ railcard
 railway
 rain
 rainbow
+rainstorm
 rally
 range
 rank
@@ -2062,6 +2098,7 @@ shard
 share
 shareholder
 shark
+sheen
 sheep
 sheet
 shelf
@@ -2167,6 +2204,7 @@ spine
 spiral
 spirit
 spite
+splendor
 split
 spokesman
 spoon
@@ -2175,6 +2213,7 @@ spot
 spray
 spread
 spring
+sprite
 spy
 squad
 square
@@ -2336,6 +2375,10 @@ throat
 throne
 thrum
 thumb
+thunder
+thunderbolt
+thunderclap
+thunderstorm
 ticket
 tide
 tie
@@ -2362,6 +2405,7 @@ tooth
 top
 topaz
 torch
+tornado
 tortoise
 touch
 tourism
@@ -2446,6 +2490,7 @@ valley
 value
 vampire
 van
+vanity
 variable
 variant
 variation
@@ -2527,6 +2572,7 @@ whale
 wheat
 wheel
 whip
+whirlwind
 widow
 width
 wife
