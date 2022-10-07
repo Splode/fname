@@ -42,6 +42,7 @@ func main() {
 	pflag.Usage = generateUsage
 
 	var (
+		casing    string = "lower"
 		delimiter string
 		help      bool
 		ver       bool
@@ -51,6 +52,7 @@ func main() {
 		// TODO: add option to use custom dictionary
 	)
 
+	pflag.StringVarP(&casing, "casing", "c", casing, "case of generated names: lower, upper, or title")
 	pflag.StringVarP(&delimiter, "delimiter", "d", delimiter, "delimiter to use between words")
 	pflag.IntVarP(&quantity, "quantity", "q", quantity, "number of name phrases to generate")
 	pflag.UintVarP(&size, "size", "z", size, "number of words per phrase (minimum 2, maximum 4)")
@@ -70,6 +72,14 @@ func main() {
 	}
 
 	opts := []fname.GeneratorOption{}
+
+	c, err := fname.ParseCasing(casing)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "error: %s", err)
+		os.Exit(1)
+	}
+	opts = append(opts, fname.WithCasing(c))
+
 	if delimiter != "" {
 		opts = append(opts, fname.WithDelimiter(delimiter))
 	}
