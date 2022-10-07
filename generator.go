@@ -6,10 +6,22 @@ import (
 	"math/rand"
 	"strings"
 	"time"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
+)
+
+type Casing string
+
+const (
+	Lower Casing = "lower"
+	Upper Casing = "upper"
+	Title Casing = "title"
 )
 
 // Generator is a random name generator.
 type Generator struct {
+	casing    Casing
 	dict      *Dictionary
 	delimiter string
 	rand      *rand.Rand
@@ -19,61 +31,100 @@ type Generator struct {
 // GeneratorOption is a function that configures a Generator.
 type GeneratorOption func(*Generator)
 
+// WithCasing sets the casing used to format the generated name.
+func WithCasing(casing Casing) GeneratorOption {
+	return func(g *Generator) {
+		g.casing = casing
+	}
+}
+
 // WithDelimiter sets the delimiter used to join words.
 func WithDelimiter(delimiter string) GeneratorOption {
-	return func(r *Generator) {
-		r.delimiter = delimiter
+	return func(g *Generator) {
+		g.delimiter = delimiter
 	}
 }
 
 // WithSeed sets the seed used to generate random numbers.
 func WithSeed(seed int64) GeneratorOption {
-	return func(r *Generator) {
-		r.rand.Seed(seed)
+	return func(g *Generator) {
+		g.rand.Seed(seed)
 	}
 }
 
 // WithSize sets the number of words in the generated name.
 func WithSize(size uint) GeneratorOption {
-	return func(r *Generator) {
-		r.size = size
+	return func(g *Generator) {
+		g.size = size
 	}
 }
 
 // NewGenerator creates a new Generator.
 func NewGenerator(opts ...GeneratorOption) *Generator {
-	r := &Generator{
+	g := &Generator{
+		casing:    Lower,
 		dict:      NewDictionary(),
 		delimiter: "-",
 		rand:      rand.New(rand.NewSource(time.Now().UnixNano())),
 		size:      2,
 	}
 	for _, opt := range opts {
-		opt(r)
+		opt(g)
 	}
-	return r
+	return g
 }
 
 // Generate generates a random name.
-func (r *Generator) Generate() (string, error) {
+func (g *Generator) Generate() (string, error) {
 	// TODO: address case where adjective and noun are the same, such as "orange-orange" or "sound-sound"
-	adjective := r.dict.adectives[r.rand.Intn(r.dict.LengthAdjective())]
-	noun := r.dict.nouns[r.rand.Intn(r.dict.LengthNoun())]
+	adjective := g.dict.adectives[g.rand.Intn(g.dict.LengthAdjective())]
+	noun := g.dict.nouns[g.rand.Intn(g.dict.LengthNoun())]
 	words := []string{adjective, noun}
 
-	switch r.size {
+	switch g.size {
 	case 2:
-		return strings.Join(words, r.delimiter), nil
+		// do nothing
 	case 3:
-		verb := r.dict.verbs[r.rand.Intn(r.dict.LengthVerb())]
+		verb := g.dict.verbs[g.rand.Intn(g.dict.LengthVerb())]
 		words = append(words, verb)
 	case 4:
-		verb := r.dict.verbs[r.rand.Intn(r.dict.LengthVerb())]
+		verb := g.dict.verbs[g.rand.Intn(g.dict.LengthVerb())]
 		words = append(words, verb)
-		adverb := r.dict.adverbs[r.rand.Intn(r.dict.LengthAdverb())]
+		adverb := g.dict.adverbs[g.rand.Intn(g.dict.LengthAdverb())]
 		words = append(words, adverb)
 	default:
-		return "", fmt.Errorf("invalid size: %d", r.size)
+		return "", fmt.Errorf("invalid size: %d", g.size)
 	}
-	return strings.Join(words, r.delimiter), nil
+	return strings.Join(g.applyCasing(words...), g.delimiter), nil
+}
+
+// ParseCasing parses a string into a casing.
+func ParseCasing(casing string) (Casing, error) {
+	switch casing {
+	case "lower":
+		return Lower, nil
+	case "upper":
+		return Upper, nil
+	case "title":
+		return Title, nil
+	default:
+		return "", fmt.Errorf("invalid casing: %s", casing)
+	}
+}
+
+var titleCaser = cases.Title(language.English)
+
+var casingMap = map[Casing]func(string) string{
+	Lower: strings.ToLower,
+	Upper: strings.ToUpper,
+	Title: titleCaser.String,
+}
+
+func (g *Generator) applyCasing(words ...string) []string {
+	if fn, ok := casingMap[g.casing]; ok {
+		for i, word := range words {
+			words[i] = fn(word)
+		}
+	}
+	return words
 }

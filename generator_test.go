@@ -24,11 +24,15 @@ func TestNewGenerator(t *testing.T) {
 
 		t.Log("\tWhen creating a new Generator with custom values")
 		{
-			g := NewGenerator(WithDelimiter("_"), WithSize(3), WithSeed(12345))
+			g := NewGenerator(WithCasing(Title), WithDelimiter("_"), WithSize(3), WithSeed(12345))
 			if g == nil {
 				t.Fatal("\t\tShould be able to create a Generator instance.")
 			}
 			t.Log("\t\tShould be able to create a Generator instance.")
+
+			if g.casing != Title {
+				t.Error("\t\tShould be able to set the casing.")
+			}
 
 			if g.size != 3 {
 				t.Fatal("\t\tShould be able to set the size of the phrase.")
@@ -65,6 +69,21 @@ func TestGenerate(t *testing.T) {
 				t.Fatal("\t\tShould be able to generate a phrase with 2 parts.")
 			}
 			t.Log("\t\tShould be able to generate a phrase with 2 parts.")
+		}
+
+		t.Log("\tWhen generating a phrase with a custom case")
+		{
+			g := NewGenerator(WithCasing(Title))
+			phrase, err := g.Generate()
+			if err != nil {
+				t.Fatal("\t\tShould be able to generate a phrase without error.")
+			}
+			t.Log("\t\tShould be able to generate a phrase without error.")
+
+			c := phrase[0]
+			if c < 'A' || c > 'Z' {
+				t.Fatal("\t\tShould be able to generate a phrase with a title case.")
+			}
 		}
 
 		t.Log("\tWhen generating a phrase with a custom delimiter")
@@ -162,6 +181,44 @@ func TestGenerate(t *testing.T) {
 				t.Fatal("\t\tShould not be able to generate a phrase with an invalid size.")
 			}
 			t.Log("\t\tShould not be able to generate a phrase with an invalid size.")
+		}
+	}
+}
+
+func TestParseCasing(t *testing.T) {
+	t.Log("Given the need to parse casing strings")
+	{
+		t.Log("\tWhen parsing a valid casing string")
+		{
+			testCases := []struct {
+				name string
+				c    Casing
+			}{
+				{"lower", Lower},
+				{"upper", Upper},
+				{"title", Title},
+			}
+			for _, tc := range testCases {
+				c, err := ParseCasing(tc.name)
+				if err != nil {
+					t.Fatalf("\t\tShould be able to parse a valid casing string : %v", err)
+				}
+				t.Log("\t\tShould be able to parse a valid casing string")
+
+				if c != tc.c {
+					t.Fatalf("\t\tShould be able to parse a valid casing string : got %v, want %v", c, tc.c)
+				}
+				t.Log("\t\tShould be able to parse a valid casing string")
+			}
+		}
+
+		t.Log("\tWhen parsing an invalid casing string")
+		{
+			_, err := ParseCasing("invalid")
+			if err == nil {
+				t.Fatal("\t\tShould not be able to parse an invalid casing string")
+			}
+			t.Log("\t\tShould not be able to parse an invalid casing string")
 		}
 	}
 }
