@@ -2,25 +2,26 @@
 package fname
 
 import (
+	"bufio"
 	_ "embed"
 	"strings"
 )
 
 //go:embed data/adjective
 var _adjective string
-var adjective = strings.Split(_adjective, "\n")
+var adjective = split(_adjective)
 
 //go:embed data/adverb
 var _adverb string
-var adverb = strings.Split(_adverb, "\n")
+var adverb = split(_adverb)
 
 //go:embed data/noun
 var _noun string
-var noun = strings.Split(_noun, "\n")
+var noun = split(_noun)
 
 //go:embed data/verb
 var _verb string
-var verb = strings.Split(_verb, "\n")
+var verb = split(_verb)
 
 // Dictionary is a collection of words.
 type Dictionary struct {
@@ -59,4 +60,14 @@ func (d *Dictionary) LengthNoun() int {
 // LengthVerb returns the number of verbs in the dictionary.
 func (d *Dictionary) LengthVerb() int {
 	return len(d.verbs)
+}
+
+func split(s string) []string {
+	scanner := bufio.NewScanner(strings.NewReader(s))
+	scanner.Split(bufio.ScanLines)
+	var lines []string
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+	return lines
 }
