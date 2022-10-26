@@ -43,7 +43,7 @@ func main() {
 
 	var (
 		casing    string = "lower"
-		delimiter string
+		delimiter string = "-"
 		help      bool
 		ver       bool
 		quantity  int   = 1
@@ -80,9 +80,7 @@ func main() {
 	}
 	opts = append(opts, fname.WithCasing(c))
 
-	if delimiter != "" {
-		opts = append(opts, fname.WithDelimiter(delimiter))
-	}
+	opts = append(opts, fname.WithDelimiter(delimiter))
 	if seed != -1 {
 		opts = append(opts, fname.WithSeed(seed))
 	}
