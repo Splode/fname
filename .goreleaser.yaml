@@ -10,6 +10,10 @@ builds:
       - linux
       - windows
       - darwin
+    goarch:
+      - amd64
+      - arm64
+      - "386"
     ignore:
       - goos: windows
         goarch: arm64
@@ -30,3 +34,6 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
+release:
+  draft: true
+  name_template: "v{{ .Version }}"
