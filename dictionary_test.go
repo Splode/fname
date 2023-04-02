@@ -13,7 +13,7 @@ func TestNewDictionary(t *testing.T) {
 			}
 			t.Log("\t\tShould be able to create a Dictionary instance.")
 
-			if len(d.adectives) == 0 {
+			if len(d.adjectives) == 0 {
 				t.Error("\t\tShould be able to load the adjective file.")
 			}
 			t.Log("\t\tShould be able to load the adjective file.")
@@ -32,7 +32,7 @@ func TestNewDictionary(t *testing.T) {
 				t.Error("\t\tShould be able to load the verb file.")
 			}
 
-			if len(d.adectives) != d.LengthAdjective() {
+			if len(d.adjectives) != d.LengthAdjective() {
 				t.Error("\t\tShould be able to get the length of the adjective file.")
 			}
 			t.Log("\t\tShould be able to get the length of the adjective file.")

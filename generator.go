@@ -1,4 +1,3 @@
-// Package fname contains functions for generating random, human-friendly names.
 package fname
 
 import (
@@ -76,9 +75,13 @@ func NewGenerator(opts ...GeneratorOption) *Generator {
 
 // Generate generates a random name.
 func (g *Generator) Generate() (string, error) {
-	// TODO: address case where adjective and noun are the same, such as "orange-orange" or "sound-sound"
-	adjective := g.dict.adectives[g.rand.Intn(g.dict.LengthAdjective())]
-	noun := g.dict.nouns[g.rand.Intn(g.dict.LengthNoun())]
+	// Keep generating adjective and noun pairs until they are not the same.
+	var adjective, noun string
+	for adjective == noun {
+		adjective = g.dict.adjectives[g.rand.Intn(g.dict.LengthAdjective())]
+		noun = g.dict.nouns[g.rand.Intn(g.dict.LengthNoun())]
+	}
+
 	words := []string{adjective, noun}
 
 	switch g.size {

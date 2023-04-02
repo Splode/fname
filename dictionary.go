@@ -25,26 +25,26 @@ var verb = split(_verb)
 
 // Dictionary is a collection of words.
 type Dictionary struct {
-	adectives []string
-	adverbs   []string
-	nouns     []string
-	verbs     []string
+	adjectives []string
+	adverbs    []string
+	nouns      []string
+	verbs      []string
 }
 
 // NewDictionary creates a new dictionary.
 func NewDictionary() *Dictionary {
 	// TODO: allow for custom dictionary
 	return &Dictionary{
-		adectives: adjective,
-		adverbs:   adverb,
-		nouns:     noun,
-		verbs:     verb,
+		adjectives: adjective,
+		adverbs:    adverb,
+		nouns:      noun,
+		verbs:      verb,
 	}
 }
 
 // LengthAdjective returns the number of adjectives in the dictionary.
 func (d *Dictionary) LengthAdjective() int {
-	return len(d.adectives)
+	return len(d.adjectives)
 }
 
 // LengthAdverb returns the number of adverbs in the dictionary.
