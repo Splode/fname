@@ -22,7 +22,7 @@ tasks:
   release:test:
     desc: Tests release process without publishing
     cmds:
-      - goreleaser --snapshot --rm-dist
+      - goreleaser --snapshot --clean
   data:dupe:
     desc: Checks dictionary data for duplicate entries
     cmds:
