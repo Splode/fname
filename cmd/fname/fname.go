@@ -73,7 +73,7 @@ func main() {
 
 	opts := []fname.GeneratorOption{}
 
-	c, err := fname.ParseCasing(casing)
+	c, err := fname.CasingFromString(casing)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error: %s", err)
 		os.Exit(1)

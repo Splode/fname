@@ -10,15 +10,40 @@ import (
 	"golang.org/x/text/language"
 )
 
-type Casing string
+type Casing int
 
 const (
-	Lower Casing = "lower"
-	Upper Casing = "upper"
-	Title Casing = "title"
+	Lower Casing = iota
+	Upper
+	Title
 )
 
-// Generator is a random name generator.
+func (c Casing) String() string {
+	switch c {
+	case Lower:
+		return "lower"
+	case Upper:
+		return "upper"
+	case Title:
+		return "title"
+	default:
+		return "unknown"
+	}
+}
+
+func CasingFromString(casing string) (Casing, error) {
+	switch strings.ToLower(casing) {
+	case Lower.String():
+		return Lower, nil
+	case Upper.String():
+		return Upper, nil
+	case Title.String():
+		return Title, nil
+	default:
+		return -1, fmt.Errorf("invalid casing: %s", casing)
+	}
+}
+
 type Generator struct {
 	casing    Casing
 	dict      *Dictionary
@@ -47,7 +72,7 @@ func WithDelimiter(delimiter string) GeneratorOption {
 // WithSeed sets the seed used to generate random numbers.
 func WithSeed(seed int64) GeneratorOption {
 	return func(g *Generator) {
-		g.rand.Seed(seed)
+		g.rand = rand.New(rand.NewSource(seed))
 	}
 }
 
@@ -75,44 +100,37 @@ func NewGenerator(opts ...GeneratorOption) *Generator {
 
 // Generate generates a random name.
 func (g *Generator) Generate() (string, error) {
-	// Keep generating adjective and noun pairs until they are not the same.
-	var adjective, noun string
-	for adjective == noun {
-		adjective = g.dict.adjectives[g.rand.Intn(g.dict.LengthAdjective())]
-		noun = g.dict.nouns[g.rand.Intn(g.dict.LengthNoun())]
-	}
-
-	words := []string{adjective, noun}
-
-	switch g.size {
-	case 2:
-		// do nothing
-	case 3:
-		verb := g.dict.verbs[g.rand.Intn(g.dict.LengthVerb())]
-		words = append(words, verb)
-	case 4:
-		verb := g.dict.verbs[g.rand.Intn(g.dict.LengthVerb())]
-		words = append(words, verb)
-		adverb := g.dict.adverbs[g.rand.Intn(g.dict.LengthAdverb())]
-		words = append(words, adverb)
-	default:
+	if g.size < 2 || g.size > 4 {
 		return "", fmt.Errorf("invalid size: %d", g.size)
 	}
-	return strings.Join(g.applyCasing(words...), g.delimiter), nil
+
+	words := make([]string, 0, g.size)
+	adjectiveIndex := g.rand.Intn(g.dict.LengthAdjective())
+	nounIndex := g.rand.Intn(g.dict.LengthNoun())
+	for adjectiveIndex == nounIndex {
+		nounIndex = g.rand.Intn(g.dict.LengthNoun())
+	}
+
+	words = append(words, g.dict.adjectives[adjectiveIndex], g.dict.nouns[nounIndex])
+
+	if g.size >= 3 {
+		words = append(words, g.dict.verbs[g.rand.Intn(g.dict.LengthVerb())])
+	}
+
+	if g.size == 4 {
+		words = append(words, g.dict.adverbs[g.rand.Intn(g.dict.LengthAdverb())])
+	}
+
+	return strings.Join(g.applyCasing(words), g.delimiter), nil
 }
 
-// ParseCasing parses a string into a casing.
-func ParseCasing(casing string) (Casing, error) {
-	switch casing {
-	case "lower":
-		return Lower, nil
-	case "upper":
-		return Upper, nil
-	case "title":
-		return Title, nil
-	default:
-		return "", fmt.Errorf("invalid casing: %s", casing)
+func (g *Generator) applyCasing(words []string) []string {
+	if fn, ok := casingMap[g.casing]; ok {
+		for i, word := range words {
+			words[i] = fn(word)
+		}
 	}
+	return words
 }
 
 var titleCaser = cases.Title(language.English)
@@ -121,13 +139,4 @@ var casingMap = map[Casing]func(string) string{
 	Lower: strings.ToLower,
 	Upper: strings.ToUpper,
 	Title: titleCaser.String,
-}
-
-func (g *Generator) applyCasing(words ...string) []string {
-	if fn, ok := casingMap[g.casing]; ok {
-		for i, word := range words {
-			words[i] = fn(word)
-		}
-	}
-	return words
 }

@@ -185,7 +185,7 @@ func TestGenerate(t *testing.T) {
 	}
 }
 
-func TestParseCasing(t *testing.T) {
+func TestCasingFromString(t *testing.T) {
 	t.Log("Given the need to parse casing strings")
 	{
 		t.Log("\tWhen parsing a valid casing string")
@@ -199,7 +199,7 @@ func TestParseCasing(t *testing.T) {
 				{"title", Title},
 			}
 			for _, tc := range testCases {
-				c, err := ParseCasing(tc.name)
+				c, err := CasingFromString(tc.name)
 				if err != nil {
 					t.Fatalf("\t\tShould be able to parse a valid casing string : %v", err)
 				}
@@ -214,7 +214,7 @@ func TestParseCasing(t *testing.T) {
 
 		t.Log("\tWhen parsing an invalid casing string")
 		{
-			_, err := ParseCasing("invalid")
+			_, err := CasingFromString("invalid")
 			if err == nil {
 				t.Fatal("\t\tShould not be able to parse an invalid casing string")
 			}
