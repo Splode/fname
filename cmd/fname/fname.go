@@ -3,6 +3,7 @@ package main
 import (
 	_ "embed"
 	"fmt"
+	"log"
 	"os"
 	"runtime/debug"
 
@@ -71,16 +72,14 @@ func main() {
 		os.Exit(0)
 	}
 
-	opts := []fname.GeneratorOption{}
-
 	c, err := fname.CasingFromString(casing)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "error: %s", err)
-		os.Exit(1)
-	}
-	opts = append(opts, fname.WithCasing(c))
+	handleError(err)
 
-	opts = append(opts, fname.WithDelimiter(delimiter))
+	opts := []fname.GeneratorOption{
+		fname.WithCasing(c),
+		fname.WithDelimiter(delimiter),
+	}
+
 	if seed != -1 {
 		opts = append(opts, fname.WithSeed(seed))
 	}
@@ -92,10 +91,7 @@ func main() {
 
 	for i := 0; i < quantity; i++ {
 		name, err := rng.Generate()
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "error: %v", err)
-			os.Exit(1)
-		}
+		handleError(err)
 		fmt.Println(name)
 	}
 }
@@ -123,4 +119,10 @@ func getVersion() string {
 	}
 
 	return version
+}
+
+func handleError(err error) {
+	if err != nil {
+		log.Fatalf("error: %v", err)
+	}
 }
