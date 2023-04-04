@@ -53,10 +53,10 @@ func main() {
 		// TODO: add option to use custom dictionary
 	)
 
-	pflag.StringVarP(&casing, "casing", "c", casing, "case of generated names: lower, upper, or title")
-	pflag.StringVarP(&delimiter, "delimiter", "d", delimiter, "delimiter to use between words")
-	pflag.IntVarP(&quantity, "quantity", "q", quantity, "number of name phrases to generate")
-	pflag.UintVarP(&size, "size", "z", size, "number of words per phrase (minimum 2, maximum 4)")
+	pflag.StringVarP(&casing, "casing", "c", casing, "set the casing of the generated name <title|upper|lower>")
+	pflag.StringVarP(&delimiter, "delimiter", "d", delimiter, "set the delimiter used to join words")
+	pflag.IntVarP(&quantity, "quantity", "q", quantity, "set the number of names to generate")
+	pflag.UintVarP(&size, "size", "z", size, "set the number of words in the generated name (minimum 2, maximum 4)")
 	pflag.Int64VarP(&seed, "seed", "s", seed, "random generator seed")
 	pflag.BoolVarP(&help, "help", "h", help, "show fname usage")
 	pflag.BoolVarP(&ver, "version", "v", ver, "show fname version")
