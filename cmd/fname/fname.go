@@ -47,17 +47,16 @@ func main() {
 		delimiter string = "-"
 		help      bool
 		ver       bool
-		quantity  int   = 1
-		size      uint  = 2
-		seed      int64 = -1
-		// TODO: add option to use custom dictionary
+		quantity  int  = 1
+		size      uint = 2
+		seed      int64
 	)
 
 	pflag.StringVarP(&casing, "casing", "c", casing, "set the casing of the generated name <title|upper|lower>")
 	pflag.StringVarP(&delimiter, "delimiter", "d", delimiter, "set the delimiter used to join words")
 	pflag.IntVarP(&quantity, "quantity", "q", quantity, "set the number of names to generate")
 	pflag.UintVarP(&size, "size", "z", size, "set the number of words in the generated name (minimum 2, maximum 4)")
-	pflag.Int64VarP(&seed, "seed", "s", seed, "random generator seed")
+	pflag.Int64VarP(&seed, "seed", "s", 0, "random generator seed")
 	pflag.BoolVarP(&help, "help", "h", help, "show fname usage")
 	pflag.BoolVarP(&ver, "version", "v", ver, "show fname version")
 	pflag.Parse()
@@ -80,7 +79,7 @@ func main() {
 		fname.WithDelimiter(delimiter),
 	}
 
-	if seed != -1 {
+	if pflag.Lookup("seed").Changed {
 		opts = append(opts, fname.WithSeed(seed))
 	}
 	if size != 2 {
