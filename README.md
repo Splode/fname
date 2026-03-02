@@ -108,6 +108,16 @@ pleasant-joy
 eligible-tenant
 ```
 
+Generate names as a JSON array (useful for scripting):
+
+```sh
+$ fname --format json --quantity 3
+["influential-length","direct-ear","cultural-storage"]
+
+$ fname -f json
+["extinct-green"]
+```
+
 ### Library
 
 #### Install
@@ -147,10 +157,39 @@ import (
 )
 
 func main() {
-  rng := fname.NewGenerator(fname.WithDelimiter("__"), fname.WithSize(3))
+  sizeOpt, err := fname.WithSize(3)
+  if err != nil {
+    panic(err)
+  }
+  rng := fname.NewGenerator(fname.WithDelimiter("__"), sizeOpt)
   phrase, err := rng.Generate()
   fmt.Println(phrase)
   // => "established__shark__destroyed"
+}
+```
+
+#### Custom Dictionary
+
+```go
+package main
+
+import (
+  "fmt"
+
+  "github.com/splode/fname"
+)
+
+func main() {
+  dict := fname.NewCustomDictionary(
+    []string{"blazing", "frozen"},  // adjectives
+    nil,                             // adverbs (uses default)
+    []string{"comet", "nebula"},    // nouns
+    nil,                             // verbs (uses default)
+  )
+  rng := fname.NewGenerator(fname.WithDictionary(dict))
+  phrase, err := rng.Generate()
+  fmt.Println(phrase)
+  // => "blazing-nebula"
 }
 ```
 
