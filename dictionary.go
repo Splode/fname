@@ -2,7 +2,6 @@
 package fname
 
 import (
-	"bufio"
 	_ "embed"
 	"strings"
 )
@@ -31,15 +30,34 @@ type Dictionary struct {
 	verbs      []string
 }
 
-// NewDictionary creates a new dictionary.
+// NewDictionary creates a new Dictionary backed by the default embedded word lists.
+// To use custom word lists, use NewCustomDictionary and pass it via WithDictionary.
 func NewDictionary() *Dictionary {
-	// TODO: allow for custom dictionary
 	return &Dictionary{
 		adjectives: adjective,
 		adverbs:    adverb,
 		nouns:      noun,
 		verbs:      verb,
 	}
+}
+
+// NewCustomDictionary creates a Dictionary with caller-supplied word lists.
+// Any nil slice falls back to the corresponding default embedded word list.
+func NewCustomDictionary(adjectives, adverbs, nouns, verbs []string) *Dictionary {
+	d := NewDictionary()
+	if adjectives != nil {
+		d.adjectives = adjectives
+	}
+	if adverbs != nil {
+		d.adverbs = adverbs
+	}
+	if nouns != nil {
+		d.nouns = nouns
+	}
+	if verbs != nil {
+		d.verbs = verbs
+	}
+	return d
 }
 
 // LengthAdjective returns the number of adjectives in the dictionary.
@@ -63,11 +81,5 @@ func (d *Dictionary) LengthVerb() int {
 }
 
 func split(s string) []string {
-	scanner := bufio.NewScanner(strings.NewReader(s))
-	scanner.Split(bufio.ScanLines)
-	var lines []string
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	return lines
+	return strings.Split(strings.TrimRight(s, "\n"), "\n")
 }

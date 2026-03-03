@@ -2,5 +2,8 @@
 **/*.bak
 
 .vscode/
+.claude/
+.codex/
 
 dist/
+fname

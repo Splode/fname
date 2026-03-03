@@ -2,6 +2,7 @@ package main
 
 import (
 	_ "embed"
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -45,19 +46,20 @@ func main() {
 	var (
 		casing    string = "lower"
 		delimiter string = "-"
+		format    string = "plain"
 		help      bool
 		ver       bool
-		quantity  int   = 1
-		size      uint  = 2
-		seed      int64 = -1
-		// TODO: add option to use custom dictionary
+		quantity  int  = 1
+		size      uint = 2
+		seed      int64
 	)
 
 	pflag.StringVarP(&casing, "casing", "c", casing, "set the casing of the generated name <title|upper|lower>")
 	pflag.StringVarP(&delimiter, "delimiter", "d", delimiter, "set the delimiter used to join words")
+	pflag.StringVarP(&format, "format", "f", format, "set the output format <plain|json>")
 	pflag.IntVarP(&quantity, "quantity", "q", quantity, "set the number of names to generate")
 	pflag.UintVarP(&size, "size", "z", size, "set the number of words in the generated name (minimum 2, maximum 4)")
-	pflag.Int64VarP(&seed, "seed", "s", seed, "random generator seed")
+	pflag.Int64VarP(&seed, "seed", "s", 0, "random generator seed")
 	pflag.BoolVarP(&help, "help", "h", help, "show fname usage")
 	pflag.BoolVarP(&ver, "version", "v", ver, "show fname version")
 	pflag.Parse()
@@ -72,7 +74,15 @@ func main() {
 		os.Exit(0)
 	}
 
-	c, err := fname.CasingFromString(casing)
+	if quantity <= 0 {
+		log.Fatalf("error: quantity must be greater than 0, got %d", quantity)
+	}
+
+	if format != "plain" && format != "json" {
+		log.Fatalf("error: invalid format %q, must be plain or json", format)
+	}
+
+	c, err := fname.ParseCasing(casing)
 	handleError(err)
 
 	opts := []fname.GeneratorOption{
@@ -80,19 +90,33 @@ func main() {
 		fname.WithDelimiter(delimiter),
 	}
 
-	if seed != -1 {
+	if pflag.Lookup("seed").Changed {
 		opts = append(opts, fname.WithSeed(seed))
 	}
 	if size != 2 {
-		opts = append(opts, fname.WithSize(size))
+		sizeOpt, err := fname.WithSize(size)
+		handleError(err)
+		opts = append(opts, sizeOpt)
 	}
 
 	rng := fname.NewGenerator(opts...)
 
+	names := make([]string, 0, quantity)
 	for i := 0; i < quantity; i++ {
 		name, err := rng.Generate()
 		handleError(err)
-		fmt.Println(name)
+		names = append(names, name)
+	}
+
+	switch format {
+	case "json":
+		out, err := json.Marshal(names)
+		handleError(err)
+		fmt.Println(string(out))
+	default:
+		for _, name := range names {
+			fmt.Println(name)
+		}
 	}
 }
 

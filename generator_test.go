@@ -24,7 +24,11 @@ func TestNewGenerator(t *testing.T) {
 
 		t.Log("\tWhen creating a new Generator with custom values")
 		{
-			g := NewGenerator(WithCasing(Title), WithDelimiter("_"), WithSize(3), WithSeed(12345))
+			sizeOpt, err := WithSize(3)
+			if err != nil {
+				t.Fatal("\t\tShould be able to create a size option without error.")
+			}
+			g := NewGenerator(WithCasing(Title), WithDelimiter("_"), sizeOpt, WithSeed(12345))
 			if g == nil {
 				t.Fatal("\t\tShould be able to create a Generator instance.")
 			}
@@ -114,7 +118,11 @@ func TestGenerate(t *testing.T) {
 
 		t.Log("\tWhen generating a phrase with a custom size")
 		{
-			g3 := NewGenerator(WithSize(3))
+			size3Opt, err := WithSize(3)
+			if err != nil {
+				t.Fatal("\t\tShould be able to create a size-3 option without error.")
+			}
+			g3 := NewGenerator(size3Opt)
 			phrase, err := g3.Generate()
 			if err != nil {
 				t.Fatal("\t\tShould be able to generate a phrase without error.")
@@ -132,7 +140,11 @@ func TestGenerate(t *testing.T) {
 			}
 			t.Log("\t\tShould be able to generate a phrase with 3 parts.")
 
-			g4 := NewGenerator(WithSize(4))
+			size4Opt, err := WithSize(4)
+			if err != nil {
+				t.Fatal("\t\tShould be able to create a size-4 option without error.")
+			}
+			g4 := NewGenerator(size4Opt)
 			phrase, err = g4.Generate()
 			if err != nil {
 				t.Fatal("\t\tShould be able to generate a phrase without error.")
@@ -175,12 +187,50 @@ func TestGenerate(t *testing.T) {
 
 		t.Log("\tWhen generating a phrase with an invalid size")
 		{
-			g := NewGenerator(WithSize(1))
-			_, err := g.Generate()
+			_, err := WithSize(1)
 			if err == nil {
-				t.Fatal("\t\tShould not be able to generate a phrase with an invalid size.")
+				t.Fatal("\t\tShould not be able to create a size option with an invalid size.")
 			}
-			t.Log("\t\tShould not be able to generate a phrase with an invalid size.")
+			t.Log("\t\tShould not be able to create a size option with an invalid size.")
+		}
+	}
+}
+
+func TestWithDictionary(t *testing.T) {
+	t.Log("Given the need to test the WithDictionary option")
+	{
+		t.Log("\tWhen generating with a custom dictionary")
+		{
+			custom := NewCustomDictionary(
+				[]string{"fast"},
+				nil,
+				[]string{"rocket"},
+				nil,
+			)
+			g := NewGenerator(WithDictionary(custom), WithSeed(1))
+			phrase, err := g.Generate()
+			if err != nil {
+				t.Fatal("\t\tShould be able to generate a phrase without error.")
+			}
+			t.Log("\t\tShould be able to generate a phrase without error.")
+
+			if phrase != "fast-rocket" {
+				t.Fatalf("\t\tShould generate phrase from custom words, got: %s", phrase)
+			}
+			t.Log("\t\tShould generate phrase from custom words.")
+		}
+
+		t.Log("\tWhen passing nil dictionary")
+		{
+			g := NewGenerator(WithDictionary(nil))
+			phrase, err := g.Generate()
+			if err != nil {
+				t.Fatal("\t\tShould fall back to default dictionary without error.")
+			}
+			if len(phrase) == 0 {
+				t.Fatal("\t\tShould produce a non-empty phrase with default dictionary.")
+			}
+			t.Log("\t\tShould fall back to default dictionary.")
 		}
 	}
 }
