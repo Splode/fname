@@ -55,7 +55,7 @@
 
 ## 10. Word List Quality
 
-- [ ] 10.1 Audit verb list and convert past-tense / past-participle entries to 3rd-person present tense
-- [ ] 10.2 Run `task data:dupe` and `task data:spellcheck` after verb edits to verify no duplicates or typos
-- [ ] 10.3 Identify the 72 adjective/noun overlap words and remove each from the less-appropriate list
-- [ ] 10.4 Re-run combination count to confirm 2-word space stays above 4 million
+- [x] 10.1 Audit verb list and convert past-tense / past-participle entries to 3rd-person present tense
+- [x] 10.2 Run `task data:dupe` and `task data:spellcheck` after verb edits to verify no duplicates or typos
+- [x] 10.3 Identify the 72 adjective/noun overlap words and remove each from the less-appropriate list
+- [x] 10.4 Re-run combination count to confirm 2-word space stays above 4 million
