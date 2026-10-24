@@ -235,6 +235,51 @@ func TestWithDictionary(t *testing.T) {
 	}
 }
 
+func TestGenerateTitleConcurrent(t *testing.T) {
+	testCases := []struct {
+		name      string
+		adjective string
+		noun      string
+		want      string
+	}{
+		{
+			name:      "mixed case and hyphen",
+			adjective: "hAPPY",
+			noun:      "t-shirt",
+			want:      "Happy-T-Shirt",
+		},
+		{
+			name:      "apostrophe and underscore",
+			adjective: "don't",
+			noun:      "foo_bar",
+			want:      "Don't-Foo_bar",
+		},
+		{
+			name:      "unicode",
+			adjective: "ßeta",
+			noun:      "ΟΣ",
+			want:      "Sseta-Ος",
+		},
+	}
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			dict := NewCustomDictionary([]string{tc.adjective}, nil, []string{tc.noun}, nil)
+			g := NewGenerator(WithDictionary(dict), WithCasing(Title), WithSeed(1))
+			for i := 0; i < 100; i++ {
+				got, err := g.Generate()
+				if err != nil {
+					t.Fatal(err)
+				}
+				if got != tc.want {
+					t.Fatalf("Generate() = %q, want %q", got, tc.want)
+				}
+			}
+		})
+	}
+}
+
 func TestCasingFromString(t *testing.T) {
 	t.Log("Given the need to parse casing strings")
 	{

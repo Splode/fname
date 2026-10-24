@@ -139,8 +139,6 @@ func (g *Generator) Generate() (string, error) {
 	return strings.Join(g.applyCasing(words), g.delimiter), nil
 }
 
-var titleCaser = cases.Title(language.English)
-
 func (g *Generator) applyCasing(words []string) []string {
 	for i, word := range words {
 		switch g.casing {
@@ -149,7 +147,7 @@ func (g *Generator) applyCasing(words []string) []string {
 		case Upper:
 			words[i] = strings.ToUpper(word)
 		case Title:
-			words[i] = titleCaser.String(word)
+			words[i] = cases.Title(language.English).String(word)
 		}
 	}
 	return words
